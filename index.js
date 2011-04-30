@@ -4,25 +4,33 @@ var Hash = require('hashish');
 
 var dictFile = __dirname + '/data/cmudict.0.7a';
 
-var exports = module.exports = function (cb) {
+module.exports = function (cb) {
     var self = {};
     var dict = {};
     
     self.pronounce = function (word) {
-        return dict[word];
+        return dict[word.toUpperCase()];
     };
     
     self.rhyme = function (word) {
+        word = word.toUpperCase();
+        if (!dict[word]) return [];
+        
         var xs = dict[word].reduce(function (acc, w) {
             acc[active(w)] = true;
             return acc;
         }, {});
         
-        return Hash(dict).reduce(function (acc, ps, w) {
+        var rhymes = [];
+        Object.keys(dict).forEach(function (w) {
             if (w === word) return;
-            if (xs[active(ps)]) acc.push(w);
-            return acc;
+            
+            var some = dict[w].some(function (p) {
+                return xs[active(p)];
+            });
+            if (some) rhymes.push(w);
         }, []);
+        return rhymes;
     };
     
     var s = fs.createReadStream(dictFile);
@@ -34,14 +42,13 @@ var exports = module.exports = function (cb) {
     Lazy(s).lines.map(String).forEach(function (line) {
         if (line.match(/^[A-Z]/i)) {
             var words = line.split(/\s+/);
-            var w = words[0].replace(/\(\d+\)$/);
+            var w = words[0].replace(/\(\d+\)$/, '');
             
             if (!dict[w]) dict[w] = [];
             dict[w].push(words.slice(1));
         }
     });
 };
-exports.rhyme = exports;
 
 function active (ws) {
     // active rhyming region: slice off the leading consonants

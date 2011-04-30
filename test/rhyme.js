@@ -1,32 +1,22 @@
 var assert = require('assert');
 var rhyme = require('rhyme');
 
-exports.orange = function () {
+exports.rhyme = function () {
     var to = setTimeout(function () {
         assert.fail('never finished');
-    }, 30000);
+    }, 15000);
     
-    rhyme('orange', function (rs) {
-        assert.eql(rs, []);
+    rhyme(function (r) {
+        clearTimeout(to);
         
-        rhyme.pronounce('orange', function (p) {
-            clearTimeout(to);
-            assert.eql(p.length, 2);
-        });
+        assert.eql(r.rhyme('orange'), []);
+        assert.ok(r.pronounce('orange').length === 2);
+        
+        var bed = r.rhyme('bed');
+        assert.ok(bed.length > 10);
+        assert.ok(bed.indexOf('RED') >= 0);
+        assert.ok(bed.indexOf('BREAD') >= 0);
+        assert.ok(bed.indexOf('BED') < 0);
     });
     
-};
-
-exports.bed = function () {
-    var to = setTimeout(function () {
-        assert.fail('never finished');
-    }, 30000);
-    
-    rhyme('bed', function (rs) {
-        clearTimeout(to);
-        assert.ok(rs.length > 1);
-        assert.ok(rs.indexOf('RED') >= 0);
-        assert.ok(rs.indexOf('BREAD') >= 0);
-        assert.ok(rs.indexOf('BED') < 0);
-    })
 };
