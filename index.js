@@ -10,7 +10,7 @@ function eachLine (stream, cb) {
     
     Lazy(stream).lines.map(String).forEach(function (line) {
         var x = line[0];
-        if (x.match(/^[A-Z]/i)) {
+        if (x && x.match(/^[A-Z]/i)) {
             if (letter !== x) { // letter transition
                 if (!offsets[x]) offsets[x] = offset;
             }
@@ -23,6 +23,8 @@ function eachLine (stream, cb) {
 }
 
 var exports = module.exports = function (word, cb) {
+    word = word.toUpperCase();
+    
     var s = fs.createReadStream(dictFile);
     var rhymes = [];
     
@@ -30,10 +32,17 @@ var exports = module.exports = function (word, cb) {
         cb(rhymes);
     });
     
-    var x = active(pronounce(word));
-    eachLine(s, function (line, w) {
-        var y = active(line.split(/\s+/).slice(1));
-        if (x === y) rhymes.push(w);
+    pronounce(word, function (ws) {
+        var xs = ws.reduce(function (acc, w) {
+            acc[active(w)] = true;
+            return acc;
+        }, {});
+        
+        eachLine(s, function (line, w) {
+            if (w === word) return;
+            var y = active(line.split(/\s+/).slice(1));
+            if (xs[y]) rhymes.push(w);
+        });
     });
 };
 
