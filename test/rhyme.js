@@ -17,6 +17,9 @@ exports.rhyme = function () {
         assert.ok(bed.indexOf('RED') >= 0);
         assert.ok(bed.indexOf('BREAD') >= 0);
         assert.ok(bed.indexOf('BED') < 0);
+        
+        var zed = r.rhyme('zed');
+        assert.eql(bed.concat('BED').sort(), zed.concat('ZED').sort());
     });
     
 };
