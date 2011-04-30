@@ -16,7 +16,10 @@
     "engines" : {
         "node" : ">=0.4.0"
     },
-    "dependencies" : {},
+    "dependencies" : {
+        "hashish" : ">=0.0.2",
+        "lazy" : ">=1.0.4"
+    },
     "devDependencies" : {},
     "license" : "MIT/X11",
     "author" : {

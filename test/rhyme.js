@@ -7,9 +7,14 @@ exports.orange = function () {
     }, 30000);
     
     rhyme('orange', function (rs) {
-        clearTimeout(to);
         assert.eql(rs, []);
-    })
+        
+        rhyme.pronounce('orange', function (p) {
+            clearTimeout(to);
+            assert.eql(p.length, 2);
+        });
+    });
+    
 };
 
 exports.bed = function () {
