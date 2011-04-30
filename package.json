@@ -1,0 +1,27 @@
+{
+    "name" : "rhyme",
+    "description" : "A rhyming dictionary",
+    "version" : "0.0.1",
+    "repository" : {
+        "type" : "git",
+        "url" : "git://github.com/substack/node-rhyme.git"
+    },
+    "main" : "./index.js",
+    "directories" : {
+        "lib" : "."
+    },
+    "scripts" : {
+        "test" : "expresso"
+    },
+    "engines" : {
+        "node" : ">=0.4.0"
+    },
+    "dependencies" : {},
+    "devDependencies" : {},
+    "license" : "MIT/X11",
+    "author" : {
+        "name" : "James Halliday",
+        "email" : "mail@substack.net",
+        "url" : "http://substack.net"
+    }
+}
