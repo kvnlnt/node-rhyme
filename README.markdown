@@ -41,3 +41,10 @@ r.pronounce(word)
 Shows how to pronounce `word` using
 [CMU's pronouncing dictionary phonemes
 ](http://www.speech.cs.cmu.edu/cgi-bin/cmudict).
+
+installation
+============
+
+Using [npm](http://npmjs.org):
+
+    npm install rhyme
