@@ -5,7 +5,15 @@ var offsets = {};
 
 exports.pronounce = function (word, cb) {
     word = word.toUpperCase();
-    var s = fs.createReadStream(__dirname + '/data/cmudict.0.7a');
+    
+    var start = offsets[word[0]];
+    var end = offsets[String.fromCharCode(word[0].charCodeAt(0) + 1)];
+    
+    var s = fs.createReadStream(__dirname + '/data/cmudict.0.7a', {
+        start : start,
+        end : end,
+    });
+    
     s.once('end', function () {
         cb(null, found);
     });
@@ -22,7 +30,7 @@ exports.pronounce = function (word, cb) {
             }
             
             var str = line.toString();
-            var w = str.match(/^(\w+(?:'S)?)/);
+            var w = str.match(/^(\w[\w-']*)/);
             if (w && w[1] == word) {
                 found.push(str.split(/\s+/).slice(1));
             }
@@ -31,6 +39,6 @@ exports.pronounce = function (word, cb) {
             }
         }
         
-        offset += line.length;
+        offset += line.length + 1;
     });
 };
