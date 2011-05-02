@@ -13,8 +13,8 @@ module.exports = function (cb) {
     };
 
     self.syllables = function (word) {
-        var pro = self.pronounce(word)[0];
-        return pro.filter(function (ph) {
+        var prose = self.pronounce(word);
+        return prose && prose[0].filter(function (ph) {
             return ph.match(/^[AEIOU]/);
         }).length;
     };

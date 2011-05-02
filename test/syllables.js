@@ -1,7 +1,7 @@
 var assert = require('assert');
 var rhyme = require('rhyme');
 
-exports.rhyme = function () {
+exports.syllables = function () {
     var to = setTimeout(function () {
         assert.fail('never finished');
     }, 15000);
@@ -19,6 +19,7 @@ exports.rhyme = function () {
         assert.eql(r.syllables('aim'), 1);
         assert.eql(r.syllables('pineapple'), 3);
         assert.eql(r.syllables('electrocution'), 5);
+        assert.ok(r.syllables('zimfphaml') === undefined);
     });
     
 };
