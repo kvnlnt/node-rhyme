@@ -8,15 +8,17 @@ exports.rhyme = function () {
     
     rhyme(function (r) {
         clearTimeout(to);
-
-        //Special case of 'Z' phoneme
-        assert.eql(r.syllables("candles"), 2);
-        //A known "problem case"
-        assert.eql(r.syllables("themselves"), 2);
-        //Debatable, but makes test pass ;)
-        assert.eql(r.syllables("dangerous"), 2);
-        //Failing?! Consider this a bug.
-        assert.eql(r.syllables("concatenate"), 4);
+        
+        assert.eql(r.syllables('candles'), 2);
+        assert.eql(r.syllables('themselves'), 2);
+        assert.eql(r.syllables('dangerous'), 3);
+        assert.eql(r.syllables('concatenate'), 4);
+        assert.eql(r.syllables('special'), 2);
+        assert.eql(r.syllables('alluring'), 3);
+        assert.eql(r.syllables('defense'), 2);
+        assert.eql(r.syllables('aim'), 1);
+        assert.eql(r.syllables('pineapple'), 3);
+        assert.eql(r.syllables('electrocution'), 5);
     });
     
 };
