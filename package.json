@@ -1,12 +1,24 @@
 {
     "name" : "rhyme",
     "description" : "A rhyming dictionary",
-    "version" : "0.0.1",
+    "version" : "0.0.2",
     "repository" : {
         "type" : "git",
         "url" : "git://github.com/substack/node-rhyme.git"
     },
     "main" : "./index.js",
+    "keywords" : [
+        "rhyme",
+        "meter",
+        "poem",
+        "poetry",
+        "song",
+        "phonemes",
+        "dictionary",
+        "syllables",
+        "pronounce",
+        "pronunciation"
+    ],
     "directories" : {
         "lib" : ".",
         "examples" : "./examples"
